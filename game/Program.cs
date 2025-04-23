@@ -20,7 +20,9 @@ namespace game
             builder.Services.AddSingleton<WebSocketManager>();
 
             var app = builder.Build();
- 
+            
+            app.Urls.Add("http://0.0.0.0:8005");
+            
             if (app.Environment.IsDevelopment())
             {
                 app.MapOpenApi();
