@@ -20,7 +20,17 @@ namespace game
             builder.Services.AddSingleton<WebSocketManager>();
 
             var app = builder.Build();
+             
             
+            if (app.Environment.IsDevelopment())
+            {
+                app.MapOpenApi();
+            }
+            
+            var logger = app.Services.GetRequiredService<ILogger<Program>>();
+            logger.LogInformation("Сервер запущен!");
+            logger.LogInformation("Run"); 
+
             app.UseWebSockets();
 
             app.Use(async (context, next) =>
@@ -42,6 +52,7 @@ namespace game
  
             app.Urls.Add("http://0.0.0.0:8005");
 
+            app.Run();
         }
     }
 }
