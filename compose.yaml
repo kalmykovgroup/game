@@ -4,5 +4,6 @@
     build:
       context: .
       dockerfile: game/Dockerfile
+    container_name: game  
     ports:  
       - "8005:8005"
