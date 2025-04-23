@@ -38,9 +38,16 @@ public class WebSocketManager
                 string message = Encoding.UTF8.GetString(buffer, 0, result.Count);
                 Console.WriteLine($"Получено: {message}");
 
+                // 🔁 Отправка эхо-ответа текущему клиенту:
+                byte[] echo = Encoding.UTF8.GetBytes("echo: " + message);
+                await webSocket.SendAsync(new ArraySegment<byte>(echo), WebSocketMessageType.Text, true, CancellationToken.None);
+
                 await BroadcastMessage(message, webSocket);
             }
+
         }
+        
+        
 
         _clients.TryTake(out _); // Удалить отключившегося клиента
         await webSocket.CloseAsync(WebSocketCloseStatus.NormalClosure, "Закрыто", CancellationToken.None);
