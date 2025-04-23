@@ -5,11 +5,10 @@ using Microsoft.AspNetCore.Mvc;
 namespace game.Controllers;
 
 [ApiController]
-[Route("api/[controller]")]
+[Route("[controller]")]
 public class ApiController : ControllerBase
 {
-   
-
+    
     [HttpGet]
     public IActionResult Get()
     {
